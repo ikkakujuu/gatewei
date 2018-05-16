@@ -1,0 +1,60 @@
+{
+	"name": "gatewei",
+	"version": "1.0.0",
+	"description": "Scalable gateway microservice for microservices",
+	"main": "build/index.js",
+	"bin": {
+		"gatewei": "build/index.js"
+	},
+	"dependencies": {
+		"commander": "^2.15.1",
+		"express": "^4.16.3",
+		"fs-extra": "^6.0.1",
+		"helmet": "^3.12.0",
+		"http-proxy-middleware": "^0.18.0",
+		"http-status": "^1.1.0",
+		"pino": "^4.16.1",
+		"rimraf": "^2.6.2"
+	},
+	"devDependencies": {
+		"@types/express": "^4.11.1",
+		"@types/fs-extra": "^5.0.2",
+		"@types/helmet": "0.0.37",
+		"@types/http-proxy-middleware": "^0.17.4",
+		"@types/http-status": "^0.2.30",
+		"@types/node": "^10.1.0",
+		"@types/pino": "^4.7.1",
+		"ts-node": "^6.0.3",
+		"tslint": "^5.10.0",
+		"typescript": "^2.8.3"
+	},
+	"scripts": {
+		"build:ts": "tsc",
+		"clean": "rimraf build",
+		"build": "npm run clean && npm run build:ts",
+		"dev": "ts-node src",
+		"start": "node build",
+		"prepare": "npm run build"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ikkakujuu/wei.git"
+	},
+	"keywords": [
+		"gateway",
+		"microservice",
+		"proxy"
+	],
+	"contributors": [
+		{
+			"name": "Bruno Scheufler",
+			"email": "contact@brunoscheufler.com",
+			"url": "https://brunoscheufler.com"
+		}
+	],
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/ikkakujuu/wei/issues"
+	},
+	"homepage": "https://github.com/ikkakujuu/wei#readme"
+}

@@ -1,0 +1,2 @@
+# Include built files for npm
+!build/

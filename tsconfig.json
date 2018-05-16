@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"target": "es2017",
+		"module": "commonjs",
+		"sourceMap": true,
+		"outDir": "./build",
+		"rootDir": "./src",
+		"strict": true,
+		"strictPropertyInitialization": false,
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true
+	}
+}
