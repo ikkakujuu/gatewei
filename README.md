@@ -18,5 +18,8 @@ npm i -g gatewei
 yarn global add gatewei
 ```
 # Highlights
+* :ok_hand: **Simple:** Get up and running with only a few steps
+* :leaves: **Lightweight:** Low memory footprint, no unnecessary bloat
+* :chart_with_upwards_trend: **Scalable:** Multithreaded load balancing already included
 
 # Usage
