@@ -11,7 +11,7 @@
 		"object-literal-sort-keys": false,
 		"trailing-comma": false,
 		"prefer-const": true,
-		"prefer-for-of": true,
+		"prefer-for-of": false,
 		"ordered-imports": false,
 		"radix": false,
 		"no-console": false,

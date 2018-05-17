@@ -2,6 +2,8 @@
 
 import { createServer, IncomingMessage } from 'http';
 import path from 'path';
+import cluster from 'cluster';
+import { cpus } from 'os';
 
 import express from 'express';
 import helmet from 'helmet';
@@ -81,13 +83,35 @@ const pkgInfo = require('../package.json');
 			}
 		);
 
-		server.listen(serverPort, () => {
-			const nodeServerAddress = server.address();
-			const port = typeof nodeServerAddress === 'string' ? '0' : nodeServerAddress.port;
+		// Create server socket workers
+		const clusterSize = typeof config.clusterSize === 'number' && !isNaN(config.clusterSize) ? config.clusterSize : cpus().length;
+		if (cluster.isMaster) {
+			for (let i = 0; i < clusterSize; i++) {
+				cluster.fork();
+			}
 
-			const address = `http://localhost:${serverPort}`;
-			logger.info(`Application is up and running at ${address} and will proxy ${services.length} services`);
-		});
+			cluster.on('exit', (worker, code, signal) => {
+				logger.warn(`Worker #${worker.process.pid} exited with ${code}: ${signal}`);
+
+				// Check if master process should be shut down on worker "death"
+				if (config.forceShutdownOnWorkerExit === true) {
+					logger.fatal(`Shutting down due to death of worker #${worker.process.pid}`);
+					process.exit(1);
+				}
+
+				// Check if worker restart is explicitly disabled
+				if (config.restartWorkers === false) {
+					return;
+				}
+
+				// Restart worker
+				cluster.fork();
+			});
+			cluster.on('listening', (worker, address) => logger.info(`Worker #${worker.process.pid} is listening on http://localhost:${address.port}`));
+			return;
+		}
+
+		server.listen(serverPort);
 	} catch (err) {
 		logger.fatal(err);
 		process.exit(1);
