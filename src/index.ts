@@ -84,8 +84,9 @@ const pkgInfo = require('../package.json');
 		);
 
 		// Create server socket workers
+		const clusterSize = typeof config.clusterSize === 'number' && !isNaN(config.clusterSize) ? config.clusterSize : cpus().length;
 		if (cluster.isMaster) {
-			for (let i = 0; i < cpus().length; i++) {
+			for (let i = 0; i < clusterSize; i++) {
 				cluster.fork();
 			}
 
