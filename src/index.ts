@@ -27,12 +27,12 @@ const pkgInfo = require('../package.json');
 
 		program
 			.version(pkgInfo.version, '-v, --version')
-			.option('-c, --config <configPath>')
+			.option('-c, --config <path>')
 			.parse(process.argv);
 
 		// Override default config file if it was supplied manually
-		if (typeof program.configPath === 'string') {
-			configPath = path.resolve(program.configPath);
+		if (typeof program.config === 'string') {
+			configPath = path.resolve(program.config);
 		}
 
 		// Check if config file exists
