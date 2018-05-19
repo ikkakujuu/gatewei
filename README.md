@@ -8,7 +8,7 @@
 > gate + 喂 (Chinese for "hello") = gatewei
 
 ## Short Description
-Opinionated, dead-simple but powerful gateway for your microservice architecture. 
+An opinionated, dead-simple but powerful gateway for your microservice architecture.
 ## Installation
 **npm**
 ```
@@ -26,9 +26,11 @@ yarn global add gatewei
 # Usage
 1. Create a file called `config.json` or specify a path with the flag `--config`
 2. Configure to your liking using the options below
-3. Run `gatewei`
+3. Run `gatewei` or `gatewei --config <your_config_path>` if you use a file other than the default `config.json` in the current working directory.
 
 ## Options
+
+### Configuration Options
 
 | Property | Description | Default |
 | --- | --- | --- |
@@ -38,3 +40,12 @@ yarn global add gatewei
 | `clusterSize` | Specify number of threads to use | Count of CPU cores |
 | `forceShutdownOnWorkerExit` | Shut down gatewei when worker exits unexpectedly | `false` |
 | `restartWorkers` | Restart worker when it exits unexpectedly | `true` |
+
+### Service Configuration
+
+A service is a simple object containing the following properties
+
+| Property | Description |
+| --- | --- |
+| `slug` | The service slug which will identify the service and be used for selecting the service to use for incoming requests
+| `target` | The target service URL. Can be either a simple host or even contain a path prefix
