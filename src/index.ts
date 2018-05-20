@@ -70,15 +70,20 @@ const pkgInfo = require('../package.json');
 				const { target } = serviceStore[serviceSlug];
 
 				// Remove service slug if configured (defaults to true)
-				const routePath = config.removeRouteSlug === false ? req.originalUrl : req.originalUrl.replace(`/${serviceSlug}/`, '');
+				const routePath = config.removeRouteSlug === false ? req.originalUrl : req.originalUrl.replace(`/${serviceSlug}`, '');
 
 				// Assemble target url from base proxy target and current request
-				const targetUrl = `${target}/${routePath}`;
+				const targetUrl = `${target}${routePath}`;
 
 				// Create and invoke proxy middleware (target will not only contain host but also final url to proxy to)
-				// prependPath -> Adds path from target to proxy (won't happen by default)
-				// ignorePath -> Ignore the route of the current request which would be used by default
-				const proxy = httpProxy({ target: targetUrl, prependPath: true, ignorePath: true });
+				const proxy = httpProxy({
+					target: targetUrl,
+					prependPath: true, // prependPath -> Adds path from target to proxy (won't happen by default)
+					ignorePath: true, // ignorePath -> Ignore the route of the current request which would be used by default
+					changeOrigin: config.changeOrigin === true, // changeOrigin -> Changes origin of proxy request to target instead of the original request
+					ws: config.enableWS === true // ws -> Enable WebSocket proxying
+				});
+
 				proxy(req, res, next);
 			}
 		);

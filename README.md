@@ -40,6 +40,10 @@ yarn global add gatewei
 | `clusterSize` | Specify number of threads to use | Count of CPU cores |
 | `forceShutdownOnWorkerExit` | Shut down gatewei when worker exits unexpectedly | `false` |
 | `restartWorkers` | Restart worker when it exits unexpectedly | `true` |
+| `enableWS` | Enable WebSocket proxying | `false` |
+| `changeOrigin` | Replace Host header of proxy request with target host instead of request host | `false` |
+
+> When enabling WebSocket proxying, to activate the proxy, an initial request has to be sent to the target service. For more information, visit [this page](https://github.com/chimurai/http-proxy-middleware#external-websocket-upgrade).
 
 ### Service Configuration
 
